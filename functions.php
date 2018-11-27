@@ -161,7 +161,7 @@ function query ($query_kedua) {
         $password2 = mysqli_real_escape_string($conn, $data['password2']);
 
         // cek username sudah ada apa belum
-        $result = mysqli_query ($conn, "SELECT username FROM users WHERE username = '$username'");
+        $result = mysqli_query ($conn, "SELECT username FROM user WHERE username = '$username'");
 
         // cek kondisi jika line 175 bernilai true maka cetak echo
         if (mysqli_fetch_assoc($result)) {
@@ -190,7 +190,7 @@ function query ($query_kedua) {
         var_dump($password);
 
     // tambahkan user baru ke database
-    mysqli_query($conn, "INSERT INTO users VALUES ('', '$username', '$password')");
+    mysqli_query($conn, "INSERT INTO user VALUES ('', '$username', '$password')");
 
     return mysqli_affected_rows($conn);
     }
