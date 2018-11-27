@@ -1,4 +1,14 @@
 <?php
+    session_start();
+    if (isset($_COOKIE['login'])) {
+        if ($_COOKIE['login']=='true') {
+            $_SESSION['login'] = true;
+        }
+    }
+    if(isset($_SESSION["login"])){
+        header("location:index.php");
+        exit;
+    }
     require 'functions.php';
     if (isset($_POST["login"])) {
         $username=$_POST["username"];
@@ -12,7 +22,15 @@
 
         if (mysqli_num_rows($result)===1) {
             $row=mysqli_fetch_assoc($result);
+            if ($key=== hash('sha256',$row['username'])) {
+                $_SESSION['login'] = true;
+            }
             if (password_verify($password,$row["password"])) {
+                $_SESSION["login"] =true;
+                if (isset($_POST['remember'])) {
+                    setcookie('id',$row['id'],time()+60)
+                    setcookie('key',hash(sha256,$row['username']),time()+60);
+                }
                 header("Location:index.php");
                 exit;
             }
@@ -50,10 +68,16 @@
                     <input type="password" name="password" id="input" class="form-control" required="required">
                 </div>
             </div>
+            <div class="checkbox col-sm-10 col-sm-offset-2">
+                <label>
+                    <input type="checkbox" value="">
+                    remember
+                </label>
+            </div>
             
             <div class="form-group">
                 <div class="col-sm-10 col-sm-offset-2">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
                 </div>
             </div>
     </form>

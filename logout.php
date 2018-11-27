@@ -1,0 +1,9 @@
+<?php
+session_start();
+session_destroy();
+session_unset();
+setcookie('id','',time()-3600);
+setcookie('id','',time()-3500);
+header("location:login.php");
+exit;
+?>

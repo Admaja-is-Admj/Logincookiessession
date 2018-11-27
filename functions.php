@@ -185,12 +185,12 @@ function query ($query_kedua) {
         }
 
     // enkripsi password
-        $password = md5($password);
-        // $password = password_hash($password, PASSWORD_DEFAULT);
+        //$password = md5($password);
+        $password = password_hash($password, PASSWORD_DEFAULT);
         var_dump($password);
 
     // tambahkan user baru ke database
-    mysqli_query($conn, "INSERT INTO user VALUES ('', '$username', '$password')");
+    mysqli_query($conn, "INSERT INTO user VALUES (' ', '$username', '$password')");
 
     return mysqli_affected_rows($conn);
     }

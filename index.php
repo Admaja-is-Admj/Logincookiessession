@@ -9,6 +9,12 @@
         // cari line 10 adalah function cari dan keyword adalah name dari inputan text
         $mahasiswa = cari($_POST["keyword"]);
     }
+    session_start();
+    if (!isset($_SESSION["login"])) {
+        echo $_SESSION["login"];
+        header("Location:login.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +82,7 @@
     </tr>
   </thead>
 </tr>
+<a href="logout.php">Logout</a>
 <?php $i = 1?>
 <!--  kita buat contoh data static -->
 <?php while ($row = mysqli_fetch_assoc($result)): ?>
